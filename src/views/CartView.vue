@@ -3,7 +3,16 @@ import { ref } from 'vue'
 import Axios from 'axios'
 const products = ref(null)
 
-Axios.get("http://localhost:3000/cart").then(r => products.value = r.data)
+Axios.get("http://localhost:3000/cart").then(r => {
+    let ids = r.data
+        products.value = ids.map(i => {
+        let item;
+        Axios.get("http://localhost:3000/products/" + i.id)
+            .then(r => item = r.data)
+        return item;
+    })
+    console.log(products.value)
+})
 </script>
 
 <template>

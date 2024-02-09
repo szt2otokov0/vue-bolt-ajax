@@ -7,15 +7,7 @@ Axios.get("http://localhost:3000/products").then( r=>{
 } )
 
 function postToCart(productId){
-  let foundItem;
-  Axios.get("http://localhost:3000/cart/" + productId).then(r => {if(r.status == 200) foundItem = r.data})
-  let cartAmount = 1;
-  if(foundItem) cartAmount = ++foundItem.amount;
-  const cartItem = {
-    id: productId,
-    amount: cartAmount
-  }
-  Axios.post("http://localhost:3000/cart",cartAmount).then( r => {
+  Axios.post("http://localhost:3000/cart",JSON.stringify({id:productId})).then( r => {
     alert("Hozzáadva a kosárhoz!")
   })
 }
